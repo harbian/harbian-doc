@@ -70,10 +70,11 @@ reprepro -V update
 ## 如何打包
 
 ### 准备工作  
-为保证完整的软件包 (重) 构建能顺利进行,你必须保证系统中已经安装：
-* build-essential 软件包;
-* Build-Depends域的软件包;
-* Build-Depends-indep域的软件包
+为保证完整的软件包 (重) 构建能顺利进行,你必须保证系统中已经安装： 
+
+* build-essential 软件包;  
+* Build-Depends域的软件包;  
+* Build-Depends-indep域的软件包  
 
 然后在源代码目录中执行以下命令:
 ```
