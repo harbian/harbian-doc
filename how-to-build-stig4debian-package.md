@@ -24,6 +24,21 @@ $ . ~/.bashrc
 ```
 ~$ cd stig-deb-test
 ~/stig-deb-test$ git clone https://github.com/hardenedlinux/STIG-4-Debian.git
+```
+
+## 修改源代码 
+
+为了使在主脚本中调用的脚本存放至/usr/lib目录下面，对原始代码进行添加与修改： 
+
+```
+stig4debian-0.1.0$ sed -i '/\/usr\/share\/doc\/gnome\/copyright/iSCRIPTS_DIR="/usr/lib/stig4debian/"' stig-4-debian.sh
+stig4debian-0.1.0$ sed -i 's/scripts/${SCRIPTS_DIR}\/scripts/g' stig-4-debian.sh 
+```
+
+
+## 对原始代码打包并进行初始化  
+
+```
 ~/stig-deb-test$ tar zcvf STIG-4-Debian.tar.gz STIG-4-Debian/
 ~/stig-deb-test$ cd STIG-4-Debian
 ~/stig-deb-test$ dh_make -f ../STIG-4-Debian.tar.gz
@@ -98,6 +113,8 @@ export DH_VERBOSE = 1
 override_dh_install:
 	install -d debian/stig4debian/usr/bin/
 	install -g root -o root -m 755 -p stig-4-debian.sh debian/stig4debian/usr/bin/
+	install -d debian/stig4debian/usr/lib/stig4debian/scripts/
+	install -p scripts/* debian/stig4debian/usr/lib/stig4debian/scripts/
 	install -d debian/stig4debian/usr/share/man/man1/
 	install -p README.md debian/stig4debian/usr/share/man/man1/stig4debian.1
 ```
