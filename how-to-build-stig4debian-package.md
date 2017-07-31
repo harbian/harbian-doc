@@ -98,6 +98,8 @@ export DH_VERBOSE = 1
 override_dh_install:
 	install -d debian/stig4debian/usr/bin/
 	install -g root -o root -m 755 -p stig-4-debian.sh debian/stig4debian/usr/bin/
+	install -d debian/stig4debian/usr/share/man/man1/
+	install -p README.md debian/stig4debian/usr/share/man/man1/stig4debian.1
 ```
 
 以上的override_dh_install表示忽略掉默认的dh_install的操作，而使用
@@ -114,5 +116,39 @@ stig4debian-0.1.0$ dpkg-buildpackage
 ```
 stig4debian-0.1.0$ ls ../*.deb
 ../stig4debian_0.1.0-1_all.deb
+```
+
+## 静态分析生成的deb包 
 
 ```
+stig4debian-0.1.0$ lintian ../stig4debian_0.1.0-1_all.deb 
+W: stig4debian: new-package-should-close-itp-bug
+E: stig4debian: copyright-contains-dh_make-todo-boilerplate
+W: stig4debian: extended-description-line-too-long
+W: stig4debian: script-with-language-extension usr/bin/stig-4-debian.sh
+W: stig4debian: manpage-has-bad-whatis-entry usr/share/man/man1/stig4debian.1.gz
+W: stig4debian: binary-without-manpage usr/bin/stig-4-debian.sh
+```
+
+## 本地安装包 
+
+```
+stig4debian-0.1.0# dpkg -i ../stig4debian_0.1.0-1_all.deb 
+Selecting previously unselected package stig4debian.
+(Reading database ... 41091 files and directories currently installed.)
+Preparing to unpack ../stig4debian_0.1.0-1_all.deb ...
+Unpacking stig4debian (0.1.0-1) ...
+Setting up stig4debian (0.1.0-1) ...
+Processing triggers for man-db (2.7.6.1-2) ...
+```
+
+## 本地卸载包 
+
+```
+stig4debian-0.1.0# dpkg -r stig4debian
+(Reading database ... 41096 files and directories currently installed.)
+Removing stig4debian (0.1.0-1) ...
+Processing triggers for man-db (2.7.6.1-2) ...
+```
+
+
