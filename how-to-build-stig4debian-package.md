@@ -30,9 +30,15 @@ $ . ~/.bashrc
 
 为了使在主脚本中调用的脚本存放至/usr/lib目录下面，对原始代码进行添加与修改： 
 
+为了满足FHS（Filesystem Hierarchy Standard，具体可见参考1），需要将执行文件、使用到的库等放置到对应的目录中。
 ```
 stig4debian-0.1.0$ sed -i '/\/usr\/share\/doc\/gnome\/copyright/iSCRIPTS_DIR="/usr/lib/stig4debian/"' stig-4-debian.sh
 stig4debian-0.1.0$ sed -i 's/scripts/${SCRIPTS_DIR}\/scripts/g' stig-4-debian.sh 
+stig4debian-0.1.0$ sed -i 's/html\//\/usr\/lib\/stig4debian\/html\//g' stig-4-debian.sh 
+stig4debian-0.1.0$ sed -i 's/stig-debian-9.txt/\/usr\/lib\/stig4debian\/stig-debian-9.txt/g' stig-4-debian.sh 
+stig4debian-0.1.0$ sed -i 's/_LOG=/_LOG=\/var\/log\/stig4debian\//g' stig-4-debian.sh 
+stig4debian-0.1.0$ sed -i '$s/STIG-for-Debian-/\/var\/log\/stig4debian\/STIG-for-Debian-/g' stig-4-debian.sh  
+stig4debian-0.1.0$ mv stig-4-debian.sh stig4debian
 ```
 
 
@@ -112,11 +118,16 @@ export DH_VERBOSE = 1
 
 override_dh_install:
 	install -d debian/stig4debian/usr/bin/
-	install -g root -o root -m 755 -p stig-4-debian.sh debian/stig4debian/usr/bin/
+	install -g root -o root -m 755 -p stig4debian debian/stig4debian/usr/bin/stig4debian
 	install -d debian/stig4debian/usr/lib/stig4debian/scripts/
-	install -p scripts/* debian/stig4debian/usr/lib/stig4debian/scripts/
+	install -g root -o root -m 644 -p scripts/* debian/stig4debian/usr/lib/stig4debian/scripts/
+	install -d debian/stig4debian/usr/lib/stig4debian/html/
+	install -g root -o root -m 644 -p html/*  debian/stig4debian/usr/lib/stig4debian/html/
+	install -g root -o root -m 644 -p stig-debian-9.txt  debian/stig4debian/usr/lib/stig4debian/
+	install -d debian/stig4debian/var/log/stig4debian/
 	install -d debian/stig4debian/usr/share/man/man1/
-	install -p README.md debian/stig4debian/usr/share/man/man1/stig4debian.1
+	install -g root -o root -m 644 -p README.md debian/stig4debian/usr/share/man/man1/stig4debian.1
+
 ```
 
 以上的override_dh_install表示忽略掉默认的dh_install的操作，而使用
@@ -142,9 +153,9 @@ stig4debian-0.1.0$ lintian ../stig4debian_0.1.0-1_all.deb
 W: stig4debian: new-package-should-close-itp-bug
 E: stig4debian: copyright-contains-dh_make-todo-boilerplate
 W: stig4debian: extended-description-line-too-long
-W: stig4debian: script-with-language-extension usr/bin/stig-4-debian.sh
+W: stig4debian: script-with-language-extension usr/bin/stig4debian
 W: stig4debian: manpage-has-bad-whatis-entry usr/share/man/man1/stig4debian.1.gz
-W: stig4debian: binary-without-manpage usr/bin/stig-4-debian.sh
+W: stig4debian: binary-without-manpage usr/bin/stig4debian
 ```
 
 ## 本地安装包 
@@ -168,4 +179,7 @@ Removing stig4debian (0.1.0-1) ...
 Processing triggers for man-db (2.7.6.1-2) ...
 ```
 
+## 参考
+
+(1) https://www.debian.org/doc/packaging-manuals/fhs/fhs-2.3.html
 
