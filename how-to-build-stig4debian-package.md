@@ -38,6 +38,7 @@ stig4debian-0.1.0$ sed -i 's/html\//\/usr\/lib\/stig4debian\/html\//g' stig-4-de
 stig4debian-0.1.0$ sed -i 's/stig-debian-9.txt/\/usr\/lib\/stig4debian\/stig-debian-9.txt/g' stig-4-debian.sh 
 stig4debian-0.1.0$ sed -i 's/_LOG=/_LOG=\/var\/log\/stig4debian\//g' stig-4-debian.sh 
 stig4debian-0.1.0$ sed -i '$s/STIG-for-Debian-/\/var\/log\/stig4debian\/STIG-for-Debian-/g' stig-4-debian.sh  
+stig4debian-0.1.0$ sed -i 's/manual.txt/\/usr\/lib\/stig4debian\/manual.txt/g' stig-4-debian.sh
 stig4debian-0.1.0$ mv stig-4-debian.sh stig4debian
 ```
 
@@ -66,7 +67,7 @@ stig4debian-0.1.0$ mv stig-4-debian.sh stig4debian
 
 在使用dh_make命令进行了初始化工作后，多了一个debian目录，此目录下有许多文件，这些文件是和定制软件包行为相关的文件。
 
-在此目录下必需的文件主要是control、copyright、changelog、rules这四个文件。根据实际情况进行文件的修改。
+在此目录下必需的文件主要是control、copyright、changelog、rules这四个文件。根据实际情况进行文件的修改，除changelog、compat、control、copyright、rules等文件及source目录保留外，其它删除掉。
 
 ### control文件  
 
@@ -124,14 +125,47 @@ override_dh_install:
 	install -d debian/stig4debian/usr/lib/stig4debian/html/
 	install -g root -o root -m 644 -p html/*  debian/stig4debian/usr/lib/stig4debian/html/
 	install -g root -o root -m 644 -p stig-debian-9.txt  debian/stig4debian/usr/lib/stig4debian/
+	install -g root -o root -m 644 -p manual.txt  debian/stig4debian/usr/lib/stig4debian/
 	install -d debian/stig4debian/var/log/stig4debian/
 	install -d debian/stig4debian/usr/share/man/man1/
 	install -g root -o root -m 644 -p README.md debian/stig4debian/usr/share/man/man1/stig4debian.1
-
 ```
 
 以上的override_dh_install表示忽略掉默认的dh_install的操作，而使用
 override_dh_install定义的动作；
+
+
+## copyright
+```
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: stig4debian
+Source: https://github.com/hardenedlinux/STIG-4-Debian
+
+Files: *
+Copyright: 2015-2017 Samson sccxboy@gmail.com
+License: GPL-3.0+
+
+Files: debian/*
+Copyright: 2017 Samson W <sccxboy@gmail.com>
+License: GPL-3.0+
+
+License: GPL-3.0+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <https://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the complete text of the GNU General
+ Public License version 3 can be found in "/usr/share/common-licenses/GPL-3".
+```
 
 ##  编译  
 
