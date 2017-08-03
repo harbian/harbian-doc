@@ -216,4 +216,8 @@ Processing triggers for man-db (2.7.6.1-2) ...
 ## 参考
 
 (1) https://www.debian.org/doc/packaging-manuals/fhs/fhs-2.3.html
+(2) https://www.debian.org/doc/manuals/maint-guide/index.en.html
+(3) https://debian-handbook.info/download/stable/debian-handbook.pdf 
+
+
 
