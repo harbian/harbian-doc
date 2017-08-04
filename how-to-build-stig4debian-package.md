@@ -180,6 +180,12 @@ stig4debian-0.1.0$ ls ../*.deb
 ../stig4debian_0.1.0-1_all.deb
 ```
 
+## 编译环境的清理
+```
+stig4debian-0.1.0$ dh_clean
+```
+
+
 ## 静态分析生成的deb包 
 
 ```
