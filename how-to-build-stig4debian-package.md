@@ -193,6 +193,12 @@ stig4debian-0.1.0$ ls ../*.deb
 ../stig4debian_0.1.0-1_all.deb
 ```
 
+## 编译环境的清理
+```
+stig4debian-0.1.0$ dh_clean
+```
+
+
 ## 静态分析生成的deb包 
 
 ```
@@ -237,9 +243,9 @@ Processing triggers for man-db (2.7.6.1-2) ...
 
 ## 参考
 
-(1) https://www.debian.org/doc/packaging-manuals/fhs/fhs-2.3.html
-(2) https://www.debian.org/doc/manuals/maint-guide/index.en.html
-(3) https://debian-handbook.info/download/stable/debian-handbook.pdf 
+(1) https://www.debian.org/doc/packaging-manuals/fhs/fhs-2.3.html  
+(2) https://www.debian.org/doc/manuals/maint-guide/index.en.html  
+(3) https://debian-handbook.info/download/stable/debian-handbook.pdf   
 
 
 
