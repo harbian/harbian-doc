@@ -169,8 +169,21 @@ License: GPL-3.0+
 
 ##  编译  
 
+### 编译签名的包 
 ```
 stig4debian-0.1.0$ dpkg-buildpackage 
+```
+
+### 编译不进行签名的包 
+```
+stig4debian-0.1.0$ dpkg-buildpackage -us -uc
+```
+
+编译不进行签名的包主要是为了让没有签名密钥的用户安装方便，但是必须进行sha512sum的计算，并提供给用户sha512sum的值的文件，以保证安装包没有被篡改过。
+
+### 生成sha512sum文件   
+``` 
+$ sha512sum stig4debian_0.1.0-1_all.deb  > stig4debian_0.1.0-1_all.deb.sha512sum
 ```
 
 查看编译出deb包：
@@ -194,6 +207,15 @@ W: stig4debian: binary-without-manpage usr/bin/stig4debian
 
 ## 本地安装包 
 
+若是对于没有签名密钥的用户进行安装未进行签名的包的安装时，首先要进行sha512sum什值的检查，以保证安装包的安全性；  
+
+### sha512sum值的检查 
+```
+sha512sum -c stig4debian_0.1.0-1_all.deb.sha512sum
+stig4debian_0.1.0-1_all.deb: OK
+```
+
+### 进行安装 
 ```
 stig4debian-0.1.0# dpkg -i ../stig4debian_0.1.0-1_all.deb 
 Selecting previously unselected package stig4debian.
