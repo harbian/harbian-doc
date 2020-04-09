@@ -297,6 +297,7 @@ sudo mv /etc/apt/trusted.gpg /etc/apt/trusted.gpg.d/harbian-archive.gpg
 ```
 
 Build image
+
 ```
 cd ~/
 mkdir my-images
@@ -309,9 +310,25 @@ should output
 /home/debian/my-images/images/debian-10-amd64-CD-1.iso
 ```
 
-You can custom the images using the profiles and conf from simple-cdd document.
+Custom Profiles
+
+custom preceed with one shell command
+because every build with simple-cdd will using /usr/share/simple-cdd/profiles/default* profile
+so we should edit /usr/share/simple-cdd/profiles/default.preseed 
+
+add following content at the end of config file
+```
+d-i preseed/late_command string \
+    in-target /bin/bash -c 'echo "harbian...." > /root/harbian'
+```
+so we can execute `/bin/bash -c 'echo "harbian...." > /root/harbian'` at the end of installation
+
+
+build image again.
+
 
 ##### Reference
 
 http://web.archive.org/web/20140218013924/http://anonscm.debian.org/gitweb/?p=mirrorer/reprepro.git;a=blob_plain;f=docs/short-howto;hb=HEAD   
 https://wiki.debian.org/DebianRepository/Setup?action=show&redirect=HowToSetupADebianRepository   
+https://computermouth.com/tutorials/custom-debian-distro-simple-cdd/   
