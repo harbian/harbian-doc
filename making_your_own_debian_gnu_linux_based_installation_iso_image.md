@@ -295,6 +295,8 @@ gpg --armor --output cert.gpg --export harbian-repo-maintainer@hardenedlinux.org
 sudo apt-key add cert.gpg
 sudo mv /etc/apt/trusted.gpg /etc/apt/trusted.gpg.d/harbian-archive.gpg
 ```
+note: make sure trusted.gpg only have one gpg key under the mail: `harbian-repo-maintainer@hardenedlinux.org`
+
 
 Build image
 
@@ -312,7 +314,7 @@ should output
 
 Custom Profiles
 
-custom preceed with one shell command
+###### custom preceed with one shell command
 because every build with simple-cdd will using /usr/share/simple-cdd/profiles/default* profile
 so we should edit /usr/share/simple-cdd/profiles/default.preseed 
 
@@ -323,8 +325,36 @@ d-i preseed/late_command string \
 ```
 so we can execute `/bin/bash -c 'echo "harbian...." > /root/harbian'` at the end of installation
 
+###### add a custom deb package
 
-build image again.
+```
+cd ~/my-images
+mkdir custompkg
+mkdir profiles
+touch profiles/custom.packages
+```
+add package name to the `profiles/custom.packages`
+in my case:
+
+```
+harbianaudit
+```
+copy the deb file to local-packages directory
+
+```
+cp harbianaudit_0.4.1-1_all.deb ~/my-images/custompkg
+```
+
+command example:
+```
+build-simple-cdd --local-packages /path/to/your/deb/files -p myprofile
+```
+in my case:
+```
+build-simple-cdd --profiles-udeb-dist buster --debian-mirror http://192.168.3.17/debian/ --dist buster --security-mirror http://192.168.3.17/debian --keyring /etc/apt/trusted.gpg.d/harbian-archive.gpg --local-packages custompkg/ -p custom
+```
+`--local-packages custompkg` specific the local-packages directory is `custompkg`
+`-p custom` specific the `custom.*` under the `profiles` directory in your directory.
 
 
 ##### Reference
