@@ -353,8 +353,8 @@ in my case:
 ```
 build-simple-cdd --profiles-udeb-dist buster --debian-mirror http://192.168.3.17/debian/ --dist buster --security-mirror http://192.168.3.17/debian --keyring /etc/apt/trusted.gpg.d/harbian-archive.gpg --local-packages custompkg/ -p custom
 ```
-`--local-packages custompkg` specific the local-packages directory is `custompkg`
-`-p custom` specific the `custom.*` under the `profiles` directory in your directory.
+`--local-packages custompkg` specific the local-packages directory is `custompkg`   
+`-p custom` specific the `custom.*` under the `profiles` directory in your directory.   
 
 
 ##### Reference
