@@ -327,6 +327,8 @@ so we can execute `/bin/bash -c 'echo "harbian...." > /root/harbian'` at the end
 
 ###### add a custom deb package
 
+for example using harbianaudit package
+
 ```
 cd ~/my-images
 mkdir custompkg
@@ -357,8 +359,69 @@ build-simple-cdd --profiles-udeb-dist buster --debian-mirror http://192.168.3.17
 `-p harbian` specific the `harbian.*` under the `profiles` directory in your directory.   
 
 
+###### Custom harbian profile full-step
+
+making necessary directories
+
+```
+mkdir ~/harbian/profiles -p
+mkdir ~/harbian/custompkg
+```
+
+copy harbianaudit package to `custompkg`
+
+```
+cp harbianaudit_0.4.1-1_all.deb ~/harbian/custompkg
+```
+
+configure `profiles/harbian.packages`
+add necessary package
+
+```
+less
+net-tools
+bc
+openssh-server
+pciutils
+network-manager
+man-db
+harbianaudit
+```
+
+according to (debian installer internal)[https://d-i.debian.org/doc/internals/] and debian official install image. We can know the difference betweent `debian official install image` and the image made from `simple-cdd` is simple-cdd's `default.preseed`. So in the `preseed` file, we should modify `profiles-releated`. And leave everything untouched.   
+
+So configure `/usr/share/simple-cdd/profiles/default.preseed`   
+and remove all default `preseed` configuration but `anna-install simple-cdd-profiles`   
+
+```
+cp /usr/share/simple-cdd/profiles/default.preseed /usr/share/simple-cdd/profiles/default.preseed.bak
+
+echo "d-i preseed/early_command string anna-install simple-cdd-profiles" > /usr/share/simple-cdd/profiles/default.preseed
+```
+
+In order to run the script at the end of installation.
+
+configure `profiles/harbian.packages`
+
+```
+d-i preseed/late_command string \
+    in-target /bin/bash -c '/opt/harbianaudit/bin/harbianaudit.sh' 
+```
+
+making custom image
+
+```
+build-simple-cdd --profiles-udeb-dist buster --debian-mirror http://192.168.3.17/debian/ --dist buster --security-mirror http://192.168.3.17/debian --keyring /etc/apt/trusted.gpg.d/harbian-archive.gpg --local-packages custompkg/ -p harbian
+```
+`--local-packages custompkg` specific the local-packages directory is `custompkg`   
+`-p harbian` specific the `harbian.*` under the `profiles` directory in your directory.   
+
+
+
 ##### Reference
 
 http://web.archive.org/web/20140218013924/http://anonscm.debian.org/gitweb/?p=mirrorer/reprepro.git;a=blob_plain;f=docs/short-howto;hb=HEAD   
 https://wiki.debian.org/DebianRepository/Setup?action=show&redirect=HowToSetupADebianRepository   
 https://computermouth.com/tutorials/custom-debian-distro-simple-cdd/   
+https://www.debian.org/releases/buster/amd64/apbs04.en.html   
+https://d-i.debian.org/doc/internals/ch02.html   
