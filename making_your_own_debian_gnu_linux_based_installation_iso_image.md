@@ -331,9 +331,9 @@ so we can execute `/bin/bash -c 'echo "harbian...." > /root/harbian'` at the end
 cd ~/my-images
 mkdir custompkg
 mkdir profiles
-touch profiles/custom.packages
+touch profiles/harbian.packages
 ```
-add package name to the `profiles/custom.packages`
+add package name to the `profiles/harbian.packages`
 in my case:
 
 ```
@@ -351,10 +351,10 @@ build-simple-cdd --local-packages /path/to/your/deb/files -p myprofile
 ```
 in my case:
 ```
-build-simple-cdd --profiles-udeb-dist buster --debian-mirror http://192.168.3.17/debian/ --dist buster --security-mirror http://192.168.3.17/debian --keyring /etc/apt/trusted.gpg.d/harbian-archive.gpg --local-packages custompkg/ -p custom
+build-simple-cdd --profiles-udeb-dist buster --debian-mirror http://192.168.3.17/debian/ --dist buster --security-mirror http://192.168.3.17/debian --keyring /etc/apt/trusted.gpg.d/harbian-archive.gpg --local-packages custompkg/ -p harbian
 ```
 `--local-packages custompkg` specific the local-packages directory is `custompkg`   
-`-p custom` specific the `custom.*` under the `profiles` directory in your directory.   
+`-p harbian` specific the `harbian.*` under the `profiles` directory in your directory.   
 
 
 ##### Reference
