@@ -48,6 +48,8 @@ go to the base directory
 
 ```
 cd /data/mirror/debian/
+mkdir -p ./conf/filterlist/
+touch ./conf/filterlist/debian-buster-src
 ```
 
 edit `conf/distributions`
