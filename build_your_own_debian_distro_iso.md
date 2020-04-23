@@ -408,7 +408,9 @@ echo "d-i preseed/early_command string anna-install simple-cdd-profiles" > /usr/
 
 In order to run the script at the end of installation.
 
-configure `profiles/harbian.packages`
+go to `~/harbian/` and configure `profiles/harbian.preseed`
+
+~/harbian/profiles/harbian.preseed
 
 ```
 d-i preseed/late_command string \
