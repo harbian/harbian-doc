@@ -1,6 +1,11 @@
-# Making a Debian GNU/Linux Based Install ISO
+# What is Harbian?
 
-To make a Custom Debian GNU/Linux Based Install ISO, you should build your own archive repositories
+The full name of Harbian is Hardened Debian GNU/Linux. We provides some extra [packages](https://github.com/harbian/harbian_packages) and [configurations](https://github.com/hardenedlinux/hardenedlinux_profiles) for hardening purpose in Harbian. The current version of Harbian is only ship with [harbian-audit](https://github.com/hardenedlinux/harbian-audit) to comply with CIS/STIG.
+
+
+# Build your own Debian GNU/Linux Base Installation ISO
+
+Give a lady/gentleman an ISO, and you help her/him for a day. Teach a lady/gentleman to build their own distro, and you feed her/him for the whole maintainence life cycle. This is literally what we do on Harbian. To make a Custom Debian GNU/Linux Based Install ISO, you should build your own archive repositories
 
 DAK (Debian Archive Kit) is use to hosting the official Debian repositories
 
