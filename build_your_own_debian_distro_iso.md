@@ -28,7 +28,7 @@ extrafiles                         #hash with signature for other file
 dists/buster/main/installer-amd64  #Installer for amd64
 ```
 
-### Configurate Reprepro
+## Configurate Reprepro
 
 Install Reprepro
 
@@ -141,8 +141,6 @@ VerifyRelease: blindtrust
 ```
 We using `VerifyRelease: blindtrust` just for test, you should using public key for production.
 
- 
-
 edit `conf/incoming`
 ```
 Name: default
@@ -161,18 +159,33 @@ sync the repro
 reprepro -V update
 ```
 
+If you miss the time to enter the passphrase of the private key, the following error appears:
+```
+gpgme gave error Pinentry:62:  Timeout
+ERROR: Could not finish exporting 'buster/updates'!
+This means that from outside your repository will still look like before (and
+should still work if this old state worked), but the changes intended with this
+call will not be visible until you call export directly (via reprepro export)
+Changes will also get visible when something else changes the same file and
+thus creates a new export of that file, but even changes to other parts of the
+same distribution will not!
+There have been errors!
+```
+Use the following command to re-enter the passphrase of the private key and complete the update repro:
+```
+reprepro -V export
+```
 
-### Manually install missing components
+## Manually install missing components
 
-
-#### Installer-amd64
+### Installer-amd64
 
 ```
 cd /data/mirror/debian/dists/buster/main
 lftp -c mirror http://mirrors.163.com/debian/dists/buster/main/installer-amd64
 ```
 
-#### README*
+### README*
 ```
 cd /data/mirror/debian
 wget http://mirrors.163.com/debian/README
@@ -182,7 +195,7 @@ wget http://mirrors.163.com/debian/README.mirrors.html
 wget http://mirrors.163.com/debian/README.mirrors.txt
 ```
 
-#### Doc
+### Doc
 
 ```
 cd /data/mirror/debian
@@ -192,7 +205,7 @@ lftp -c mirror http://mirrors.163.com/debian/doc
 you should verify the hash from the upstream repo
 
 
-#### Generate and sign hash
+### Generate and sign hash
 
 for installer
 ```
@@ -216,7 +229,7 @@ sha256sum $(find * -type f | egrep -v '(pool|i18n|dep11|source)/|Contents-.*\.(g
 gpg --no-options --batch --no-tty --armour --personal-digest-preferences=SHA256  --no-options --batch --no-tty --armour --default-key 9ED4F04C --clearsign --output extrafiles /tmp/extrafile
 ```
 
-### Setting up the http access
+## Setting up the http access
 
 Install apache2
 ```
@@ -289,7 +302,7 @@ systemctl restart apache2
 ```
 
 
-### Using Simple-CDD to make a cd image
+## Using Simple-CDD to make a cd image
 
 Install simple-cdd packages
 ```
@@ -321,7 +334,7 @@ should output
 
 Custom Profiles
 
-###### custom preceed with one shell command
+### custom preceed with one shell command
 because every build with simple-cdd will using /usr/share/simple-cdd/profiles/default* profile
 so we should edit /usr/share/simple-cdd/profiles/default.preseed 
 
@@ -332,7 +345,7 @@ d-i preseed/late_command string \
 ```
 so we can execute `/bin/bash -c 'echo "harbian...." > /root/harbian'` at the end of installation
 
-###### add a custom deb package
+### add a custom deb package
 
 for example using harbianaudit package
 
@@ -366,7 +379,7 @@ build-simple-cdd --profiles-udeb-dist buster --debian-mirror http://192.168.3.17
 `-p harbian` specific the `harbian.*` under the `profiles` directory in your directory.   
 
 
-###### Custom harbian profile full-step
+### Custom harbian profile full-step
 
 making necessary directories
 
@@ -378,10 +391,11 @@ mkdir ~/harbian/custompkg
 copy harbianaudit package to `custompkg`
 
 ```
+wget https://raw.githubusercontent.com/harbian/harbian_packages/master/2020/harbianaudit_0.4.1-1_all.deb
 cp harbianaudit_0.4.1-1_all.deb ~/harbian/custompkg
 ```
 
-configure `profiles/harbian.packages`
+configure `~/harbian/profiles/harbian.packages`
 add necessary package
 
 ```
@@ -426,8 +440,7 @@ build-simple-cdd --profiles-udeb-dist buster --debian-mirror http://192.168.3.17
 `-p harbian` specific the `harbian.*` under the `profiles` directory in your directory.   
 
 
-
-##### Reference
+## Reference
 
 http://web.archive.org/web/20140218013924/http://anonscm.debian.org/gitweb/?p=mirrorer/reprepro.git;a=blob_plain;f=docs/short-howto;hb=HEAD   
 https://wiki.debian.org/DebianRepository/Setup?action=show&redirect=HowToSetupADebianRepository   
