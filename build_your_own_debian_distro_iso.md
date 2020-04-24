@@ -223,7 +223,7 @@ gpg -u harbian-repo-maintainer -bao Release.gpg Release
 for `extrafiles`(other files)
 
 ```
-/data/mirror/debian/
+cd /data/mirror/debian/
 rm extrafiles
 sha256sum $(find * -type f | egrep -v '(pool|i18n|dep11|source)/|Contents-.*\.(gz|diff)|installer|binary-|(In)?Release(.gpg)?|\.changes' | sort | sed -e "/^conf/d"  -e "/^db/d") > /tmp/extrafile
 gpg --no-options --batch --no-tty --armour --personal-digest-preferences=SHA256  --no-options --batch --no-tty --armour --default-key 9ED4F04C --clearsign --output extrafiles /tmp/extrafile
@@ -434,6 +434,7 @@ d-i preseed/late_command string \
 making custom image
 
 ```
+cd ~/harbian
 build-simple-cdd --profiles-udeb-dist buster --debian-mirror http://192.168.3.17/debian/ --dist buster --security-mirror http://192.168.3.17/debian --keyring /etc/apt/trusted.gpg.d/harbian-archive.gpg --local-packages custompkg/ -p harbian
 ```
 `--local-packages custompkg` specific the local-packages directory is `custompkg`   
