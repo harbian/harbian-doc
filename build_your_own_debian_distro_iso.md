@@ -115,7 +115,7 @@ edit `conf/updates`
 
 ```
 Name: upstream-main
-Method: http://mirrors.163.com/debian/
+Method: http://deb.debian.org/debian/
 Suite: buster
 Components: main
 Architectures: amd64 source
@@ -124,7 +124,7 @@ FilterSrcList: install filterlist/debian-buster-src
 VerifyRelease: blindtrust
 
 Name: upstream-main-updates
-Method: http://mirrors.163.com/debian/
+Method: http://deb.debian.org/debian/
 Suite: buster-updates
 Components: main
 Architectures: amd64 source
@@ -133,7 +133,7 @@ FilterSrcList: install filterlist/debian-buster-src
 VerifyRelease: blindtrust
 
 Name: security
-Method: http://mirrors.163.com/debian-security
+Method: http://deb.debian.org/debian-security
 Suite: buster/updates
 Components: main
 UDebComponents: main
@@ -182,24 +182,24 @@ reprepro -V export
 
 ```
 cd /data/mirror/debian/dists/buster/main
-lftp -c mirror http://mirrors.163.com/debian/dists/buster/main/installer-amd64
+lftp -c mirror http://deb.debian.org/debian/dists/buster/main/installer-amd64
 ```
 
 ### README*
 ```
 cd /data/mirror/debian
-wget http://mirrors.163.com/debian/README
-wget http://mirrors.163.com/debian/README.CD-manufacture
-wget http://mirrors.163.com/debian/README.html
-wget http://mirrors.163.com/debian/README.mirrors.html
-wget http://mirrors.163.com/debian/README.mirrors.txt
+wget http://deb.debian.org/debian/README
+wget http://deb.debian.org/debian/README.CD-manufacture
+wget http://deb.debian.org/debian/README.html
+wget http://deb.debian.org/debian/README.mirrors.html
+wget http://deb.debian.org/debian/README.mirrors.txt
 ```
 
 ### Doc
 
 ```
 cd /data/mirror/debian
-lftp -c mirror http://mirrors.163.com/debian/doc
+lftp -c mirror http://deb.debian.org/debian/doc
 ```
 
 you should verify the hash from the upstream repo
