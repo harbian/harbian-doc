@@ -224,7 +224,7 @@ for `extrafiles`(other files)
 
 ```
 cd /data/mirror/debian/
-rm extrafiles
+rm -f extrafiles
 sha256sum $(find * -type f | egrep -v '(pool|i18n|dep11|source)/|Contents-.*\.(gz|diff)|installer|binary-|(In)?Release(.gpg)?|\.changes' | sort | sed -e "/^conf/d"  -e "/^db/d") > /tmp/extrafile
 gpg --no-options --batch --no-tty --armour --personal-digest-preferences=SHA256  --no-options --batch --no-tty --armour --default-key 9ED4F04C --clearsign --output extrafiles /tmp/extrafile
 ```
@@ -335,7 +335,7 @@ should output
 Custom Profiles
 
 ### custom preceed with one shell command
-because every build with simple-cdd will using /usr/share/simple-cdd/profiles/default* profile
+because every build with simple-cdd will be using /usr/share/simple-cdd/profiles/default* profile
 so we should edit /usr/share/simple-cdd/profiles/default.preseed 
 
 add following content at the end of config file
