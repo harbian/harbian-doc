@@ -76,7 +76,7 @@ Architectures: amd64 source
 Components: main 
 UDebComponents: main
 Contents: udebs percomponent allcomponents
-Description: harbian Linux Server  updates
+Description: harbian Linux Server updates
 SignWith: CE7044058CA25835BA2E1ABFA7055AEC9ED4F04C
 Log: harbian.log
 Update: upstream-main-updates
@@ -89,7 +89,7 @@ Architectures: amd64 source
 Components: main 
 UDebComponents: main
 Contents: udebs percomponent allcomponents
-Description: harbian Linux Server  updates
+Description: harbian Linux Server updates
 SignWith: CE7044058CA25835BA2E1ABFA7055AEC9ED4F04C
 Log: harbian.log
 Update: security
