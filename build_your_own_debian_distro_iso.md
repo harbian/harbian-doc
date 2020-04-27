@@ -441,6 +441,11 @@ build-simple-cdd --profiles-udeb-dist buster --debian-mirror http://192.168.3.17
 `-p harbian` specific the `harbian.*` under the `profiles` directory in your directory.   
 
 
+## Easy to build
+
+We provide a [set of scripts](https://github.com/hardenedlinux/hardenedlinux_profiles/tree/master/harbian-build) can build the ISO automatically for those who don't have interest to learn how to "fish".
+
+
 ## Reference
 
 http://web.archive.org/web/20140218013924/http://anonscm.debian.org/gitweb/?p=mirrorer/reprepro.git;a=blob_plain;f=docs/short-howto;hb=HEAD   
