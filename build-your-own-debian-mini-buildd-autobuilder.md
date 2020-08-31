@@ -53,7 +53,7 @@ Fix broken dependencies and setting mini-buildd password
 apt --fix-broken install -y
 ```
 
-Now we can visit `http://<server ip>:8067/` for further configuration
+Now we can visit `http://<server ip>:8066/` for further configuration
 
 ### configurate mini-buildd autobuilder server
 
@@ -330,7 +330,7 @@ deb http://mini-buildd:8066/repositories/test/ sid-test-stable main contrib non-
 ```
 
 please change `mini-buildd:8066` to `<server ip>:8066`
-you can find repositories public key by visit visit `http://<server ip>:8066/mini_buildd/` click `Toolbox` and click `getkey`
+you can find repositories public key by visit `http://<server ip>:8066/mini_buildd/` click `Toolbox` and click `getkey`
 
 you can save it to a file, and using apt-key to trust this public
 
