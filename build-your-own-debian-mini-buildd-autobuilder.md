@@ -52,7 +52,12 @@ Fix broken dependencies and setting mini-buildd password
 ```
 apt --fix-broken install -y
 ```
-
+Modify for ipv4:
+```
+sed -i 's/tcp6:port/tcp:port/'  /usr/sbin/mini-buildd
+systemctl stop mini-buildd.service
+systemctl start mini-buildd.service
+```
 Now we can visit `http://<server ip>:8066/` for further configuration
 
 ### configurate mini-buildd autobuilder server
@@ -154,10 +159,10 @@ Experimental mandatory version regex: .*
 ```
 
 
-Click the `Distributions` of `Layouts` row to add distributions information
-Click the `Test` of `Repositories` row to add repositories information
+Click the `Distributions` to add distributions information
+Click the `test: sid buster` row to check repositories information, and select `Available distributions` choose from left box to right box.
 
-And then click `Repositories`, select `test` and click `Prepare` and then `Check` and then `Activate`
+And then click `Repositories`, select `test: sid buster` row and click `Prepare` and then `Check` and then `Activate`
 
 The `parepare` in this action would take about 1 mins.
 
