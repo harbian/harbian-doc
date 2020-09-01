@@ -374,7 +374,7 @@ pftools/stable,unstable 3+dfsg-3 amd64
 Install htop's package with our mini-buildd repositories
 
 ```
-root@mini-buildd:~# apt install-t sid-test-unstable htop-dbgsym
+root@mini-buildd:~# apt install -t sid-test-unstable htop-dbgsym
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
